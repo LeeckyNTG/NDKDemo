@@ -23,10 +23,16 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = findViewById(R.id.sample_text);
         tv.setText(jni.getStringFormCPlus());
 
-        Log.i(TAG, "onCreate: 修改前->"+jni.key);
-        jni.loadStringToCPlus(jni.key);
-        Log.i(TAG, "onCreate: 修改后->"+jni.key);
-        
-        
+        Log.i(TAG, "onCreate: key修改前->"+jni.key);
+        jni.accessField(jni.key);
+        Log.i(TAG, "onCreate: key修改前修改后->"+jni.key);
+
+        Log.i(TAG, "onCreate: count修改前->"+NativeJni.count);
+        jni.accessStaticField();
+        Log.i(TAG, "onCreate: count修改后->"+NativeJni.count);
+
+        jni.accessMethod();
+
+        jni.accessStaticMethod();
     }
 }
