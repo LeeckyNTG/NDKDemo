@@ -40,6 +40,26 @@ public class NativeJni {
 
     public native String chineseChars(String str);
 
+    public native void giveArray(int [] arrays);
+
+    public native int [] getArray(int len);
+
+    public native void localRef();
+
+    public native void createGlobalRef();
+
+    public native String getGlobalRef();
+
+    public native void deleteGlobalRef();
+
+    public native void exeception();
+
+    public native void cached();
+
+    public native void bytesToInt8s(byte [] bytes);
+
+    public native void byteToInt8();
+
     public int getRandomInt(int max) {
         Log.i(TAG, "getRandomInt: 执行了");
         return new Random().nextInt(max);
