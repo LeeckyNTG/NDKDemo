@@ -41,8 +41,13 @@ Java_com_clover_ndkdemo_jni_Cryptor_crypt(JNIEnv *env, jobject thiz, jstring nor
                                           jstring crypt_path) {
     //jstring转char *
 
-    const char *normal_path_chars = env->GetStringUTFChars(normal_path, JNI_FALSE);
-    const char *crypt_path_chars = env->GetStringUTFChars(crypt_path, JNI_FALSE);
+    jboolean isCopy = NULL;
+    const char *normal_path_chars = env->GetStringUTFChars(normal_path, &isCopy);
+    //判断是否复制了
+    if (isCopy) {
+
+    }
+    const char *crypt_path_chars = env->GetStringUTFChars(crypt_path, NULL);
 
     //打开文件
     FILE *normal_fp = fopen(normal_path_chars, "rb");
@@ -56,6 +61,8 @@ Java_com_clover_ndkdemo_jni_Cryptor_crypt(JNIEnv *env, jobject thiz, jstring nor
         fputc(ch ^ password[i % pwd_len], crypt_fp);
         i++;
     }
+    env->ReleaseStringChars(normal_path, reinterpret_cast<const jchar *>(normal_path_chars));
+    env->ReleaseStringChars(crypt_path, reinterpret_cast<const jchar *>(crypt_path_chars));
     //关闭文件流
     fclose(crypt_fp);
     fclose(normal_fp);
@@ -72,13 +79,12 @@ Java_com_clover_ndkdemo_jni_Cryptor_decrypt(JNIEnv *env, jobject thiz, jstring n
 
     //jstring转char *
 
-    const char *normal_path_chars = env->GetStringUTFChars(normal_path, JNI_FALSE);
-    const char *decrypt_path_chars = env->GetStringUTFChars(decrypt_path, JNI_FALSE);
+    const char *normal_path_chars = env->GetStringUTFChars(normal_path, NULL);
+    const char *decrypt_path_chars = env->GetStringUTFChars(decrypt_path, NULL);
 
     //打开文件
     FILE *normal_fp = fopen(normal_path_chars, "rb");
     FILE *decrypt_fp = fopen(decrypt_path_chars, "wb");
-
 
     //一次读一个字节
     int ch;
@@ -88,6 +94,8 @@ Java_com_clover_ndkdemo_jni_Cryptor_decrypt(JNIEnv *env, jobject thiz, jstring n
         fputc(ch ^ password[i % pwd_len], decrypt_fp);
         i++;
     }
+    env->ReleaseStringChars(normal_path, reinterpret_cast<const jchar *>(normal_path_chars));
+    env->ReleaseStringChars(decrypt_path, reinterpret_cast<const jchar *>(decrypt_path_chars));
     //关闭文件流
     fclose(decrypt_fp);
     fclose(normal_fp);

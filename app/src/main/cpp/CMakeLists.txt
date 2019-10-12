@@ -19,5 +19,5 @@ find_library(
 
 target_link_libraries(
         native-lib
-
+        cryptor
         ${log-lib})
