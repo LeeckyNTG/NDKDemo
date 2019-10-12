@@ -1,2 +1,2 @@
-include ':app', ':floatbutton'
+include ':app', ':floatbutton', ':file_patch'
 rootProject.name='NDKDemo'
