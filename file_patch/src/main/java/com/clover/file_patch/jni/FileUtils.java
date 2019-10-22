@@ -20,6 +20,6 @@ public class FileUtils {
      * @param path
      * @param count
      */
-    public native static void patch(String path, int count);
+    public native static void patch(String path,String path_pattern, int count);
 
 }
